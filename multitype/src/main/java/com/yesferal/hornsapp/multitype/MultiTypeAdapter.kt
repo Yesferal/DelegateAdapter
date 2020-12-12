@@ -8,7 +8,7 @@ import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import java.lang.Exception
 
 class MultiTypeAdapter (
-    private val listener: ViewHolderBinding.Listener,
+    private val listener: ViewHolderBinding.Listener = object : ViewHolderBinding.Listener {},
     private val list: MutableList<ViewHolderBinding> = mutableListOf()
 ) : RecyclerView.Adapter<BaseViewHolder<ViewHolderBinding>>() {
 
@@ -39,7 +39,7 @@ class MultiTypeAdapter (
         holder.bind(model = list[position])
     }
 
-    fun setItems(newList: List<ViewHolderBinding>) {
+    fun setModels(newList: List<ViewHolderBinding>) {
         list.clear()
         newList.forEach {
             list.add(it)

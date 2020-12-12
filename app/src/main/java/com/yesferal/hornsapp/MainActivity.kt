@@ -18,7 +18,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        multiTypeAdapter = MultiTypeAdapter(instanceAdapterListener())
+        multiTypeAdapter = MultiTypeAdapter(listener = object :
+                MainCardModel.Listener,
+                SecondaryCardModel.Listener {
+            override fun onClick(mainCardModel: MainCardModel) {
+                Toast.makeText(this@MainActivity, "You click on main object: $mainCardModel", Toast.LENGTH_SHORT)
+                        .show()
+            }
+
+            override fun onClick(secondaryCardModel: SecondaryCardModel) {
+                Toast.makeText(this@MainActivity, "You click on secondary object: $secondaryCardModel", Toast.LENGTH_SHORT)
+                        .show()
+            }
+        })
+
         recyclerView.also {
             it.adapter = multiTypeAdapter
             it.layoutManager = LinearLayoutManager(
@@ -29,20 +42,6 @@ class MainActivity : AppCompatActivity() {
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
 
-        multiTypeAdapter.setItems(ViewGenerator.models)
+        multiTypeAdapter.setModels(ViewGenerator.models)
     }
 }
-
-private fun MainActivity.instanceAdapterListener() =
-        object : MainCardModel.Listener,
-        SecondaryCardModel.Listener {
-            override fun onClick(mainCardModel: MainCardModel) {
-                Toast.makeText(this@instanceAdapterListener, "You click on main object: $mainCardModel", Toast.LENGTH_SHORT)
-                        .show()
-            }
-
-            override fun onClick(secondaryCardModel: SecondaryCardModel) {
-                Toast.makeText(this@instanceAdapterListener, "You click on secondary object: $secondaryCardModel", Toast.LENGTH_SHORT)
-                        .show()
-            }
-        }
