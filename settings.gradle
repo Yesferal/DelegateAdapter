@@ -1,0 +1,3 @@
+include ':multitype'
+include ':app'
+rootProject.name = "MultiTypeDemo"
