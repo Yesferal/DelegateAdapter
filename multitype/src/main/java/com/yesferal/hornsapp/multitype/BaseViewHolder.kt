@@ -4,9 +4,12 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 
-abstract class BaseViewHolder<MODEL: ViewHolderBinding>(
-    itemView: View
+class BaseViewHolder<MODEL: ViewHolderBinding> (
+    itemView: View,
+    private val listener: ViewHolderBinding.Listener
 ) : RecyclerView.ViewHolder(itemView) {
 
-    abstract fun bind(model: MODEL)
+    fun bind(model: MODEL) {
+        model.bindViewHolder(itemView, listener)
+    }
 }

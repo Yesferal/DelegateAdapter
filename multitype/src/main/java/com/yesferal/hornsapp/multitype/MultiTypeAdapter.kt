@@ -9,7 +9,7 @@ import java.lang.Exception
 
 class MultiTypeAdapter (
     private val listener: ViewHolderBinding.Listener = object : ViewHolderBinding.Listener {},
-    private val list: MutableList<ViewHolderBinding> = mutableListOf()
+    private val items: MutableList<ViewHolderBinding> = mutableListOf()
 ) : RecyclerView.Adapter<BaseViewHolder<ViewHolderBinding>>() {
 
     private val viewTypes: HashMap<Int, (
@@ -29,28 +29,26 @@ class MultiTypeAdapter (
     }
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].layout
+        return items[position].layout
     }
 
     override fun onBindViewHolder(
         holder: BaseViewHolder<ViewHolderBinding>,
         position: Int
     ) {
-        holder.bind(model = list[position])
+        holder.bind(items[position])
     }
 
-    fun setModels(newList: List<ViewHolderBinding>) {
-        list.clear()
-        newList.forEach {
-            list.add(it)
+    fun setItems(newItems: List<BaseItem<out ViewHolderBinding.Listener>>) {
+        items.clear()
+        newItems.forEach {
+            items.add(it)
             viewTypes[it.layout] = { view, listener ->
-                @Suppress("UNCHECKED_CAST")
-                it.onCreateViewHolder(view, listener) as BaseViewHolder<ViewHolderBinding>
+                it.onCreateViewHolder(view, listener)
             }
         }
-
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = items.size
 }

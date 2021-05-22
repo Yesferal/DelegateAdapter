@@ -3,12 +3,16 @@ package com.yesferal.hornsapp.multitype.model
 import android.view.View
 import com.yesferal.hornsapp.multitype.BaseViewHolder
 
-interface ViewHolderBinding: LayoutBinding {
+abstract class ViewHolderBinding: LayoutBinding {
 
     interface Listener
+
+    internal abstract fun bindViewHolder(view: View, listener: Listener)
 
     fun onCreateViewHolder(
         itemView: View,
         listener: Listener
-    ) : BaseViewHolder<out ViewHolderBinding>
+    ) : BaseViewHolder<ViewHolderBinding> {
+        return BaseViewHolder(itemView, listener)
+    }
 }
