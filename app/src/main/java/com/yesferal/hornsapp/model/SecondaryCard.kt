@@ -4,7 +4,6 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.BaseItem
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
 import kotlinx.android.synthetic.main.item_secondary_card.view.*
 
 class SecondaryCard(
@@ -25,7 +24,7 @@ class SecondaryCard(
     override val layout: Int
         get() = R.layout.item_secondary_card
 
-    interface Listener: ViewHolderBinding.Listener {
+    interface Listener: BaseItem.Listener {
         fun onClick(secondaryCard: SecondaryCard)
     }
 }

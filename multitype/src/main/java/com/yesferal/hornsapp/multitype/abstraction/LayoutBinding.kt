@@ -1,4 +1,4 @@
-package com.yesferal.hornsapp.multitype.model
+package com.yesferal.hornsapp.multitype.abstraction
 
 import androidx.annotation.LayoutRes
 

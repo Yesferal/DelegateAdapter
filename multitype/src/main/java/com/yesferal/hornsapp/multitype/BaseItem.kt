@@ -1,9 +1,10 @@
 package com.yesferal.hornsapp.multitype
 
 import android.view.View
-import com.yesferal.hornsapp.multitype.model.ViewHolderBinding
+import com.yesferal.hornsapp.multitype.abstraction.ViewHolderBinding
 
-abstract class BaseItem<LISTENER: ViewHolderBinding.Listener>: ViewHolderBinding() {
+abstract class BaseItem<LISTENER: BaseItem.Listener>: ViewHolderBinding() {
+    interface Listener
 
     abstract fun bind(view: View, listener: LISTENER)
 
