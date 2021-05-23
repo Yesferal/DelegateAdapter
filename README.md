@@ -4,7 +4,14 @@
  and then insert them into this adapter.
 
  ## Getting Started
- In your app gradle, you should add the dependency:
+ In your app gradle, you should add the repository:
+ ```
+ repositories {
+     jcenter()
+     maven { url "https://jitpack.io" }
+ }
+ ```
+ and the dependency:
  ```kotlin
  implementation 'com.yesferal.hornsapp:multitype:1.0.1'
  ```
