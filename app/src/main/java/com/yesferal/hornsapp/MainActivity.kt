@@ -29,11 +29,7 @@ class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Liste
 
         recyclerView.also {
             it.adapter = multiTypeAdapter
-            it.layoutManager = LinearLayoutManager(
-                    this,
-                    LinearLayoutManager.VERTICAL,
-                    false
-            )
+            it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             it.addItemDecoration(RecyclerViewVerticalDecorator())
         }
     }
@@ -47,12 +43,12 @@ class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Liste
     }
 
     override fun onClick(mainCard: MainCard) {
-        Toast.makeText(this@MainActivity, "You click on main object: $mainCard", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "You click on main object: $mainCard", Toast.LENGTH_SHORT)
                 .show()
     }
 
     override fun onClick(secondaryCard: SecondaryCard) {
-        Toast.makeText(this@MainActivity, "You click on secondary object: $secondaryCard", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "You click on secondary object: $secondaryCard", Toast.LENGTH_SHORT)
                 .show()
     }
 }
