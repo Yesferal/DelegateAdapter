@@ -6,7 +6,7 @@
  ## Getting Started
  In your app gradle, you should add the dependency:
  ```kotlin
- implementation 'com.yesferal.hornsapp:multitype:1.0.1'
+ implementation 'com.yesferal.hornsapp:multitype:1.2.1'
  ```
 
  Now, you could instance a `MultiTypeAdapter` in your Activity or Fragment, as you normally did.
