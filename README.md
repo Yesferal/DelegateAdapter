@@ -16,7 +16,7 @@ allprojects {
  ```
  and the dependency:
  ```kotlin
- implementation 'com.github.Yesferal:MultiTypeAdapter:1.3.1'
+ implementation 'com.github.Yesferal:MultiTypeAdapter:1.3.2'
  ```
 
  Now, you could instance a `MultiTypeAdapter` in your Activity or Fragment, as you normally did.
