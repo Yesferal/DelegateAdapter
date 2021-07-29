@@ -1,12 +1,22 @@
+ [![](https://jitpack.io/v/Yesferal/MultiTypeAdapter.svg)](https://jitpack.io/#Yesferal/MultiTypeAdapter)
  # MultiType Adapter
  This library contains a multi-type adapter class, which you can use in any Android project.
  You can define all your custom views as a `BaseItem`,
  and then insert them into this adapter.
 
  ## Getting Started
- In your app gradle, you should add the dependency:
+ In your app gradle, you should add the repository:
  ```kotlin
- implementation 'com.yesferal.hornsapp:multitype:1.2.1'
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+ ```
+ and the dependency:
+ ```kotlin
+ implementation 'com.github.Yesferal:MultiTypeAdapter:1.3.1'
  ```
 
  Now, you could instance a `MultiTypeAdapter` in your Activity or Fragment, as you normally did.
