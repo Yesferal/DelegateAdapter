@@ -1,10 +1,11 @@
 package com.yesferal.hornsapp.model
 
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.BaseItem
-import kotlinx.android.synthetic.main.item_main_card.view.*
 
 class MainCard(
     val title: String,
@@ -12,8 +13,8 @@ class MainCard(
 ) : BaseItem<MainCard.Listener>() {
 
     override fun bind(view: View, listener: Listener) {
-        view.title.text = title
-        view.image.setImageResource(image)
+        view.findViewById<TextView>(R.id.title).text = title
+        view.findViewById<ImageView>(R.id.image).setImageResource(image)
         view.setOnClickListener {
             listener.onClick(this)
         }

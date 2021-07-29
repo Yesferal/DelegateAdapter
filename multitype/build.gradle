@@ -9,7 +9,7 @@ android {
     def publishVersionID = "1.2.1"
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName publishVersionID

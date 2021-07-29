@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.model.MainCard
 import com.yesferal.hornsapp.model.SecondaryCard
 import com.yesferal.hornsapp.multitype.BaseItem
 import com.yesferal.hornsapp.multitype.MultiTypeAdapter
 import com.yesferal.hornsapp.util.RecyclerViewVerticalDecorator
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Listener {
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Liste
                 .setListener(this)
                 .build()
 
-        recyclerView.also {
+        findViewById<RecyclerView>(R.id.recyclerView).also {
             it.adapter = multiTypeAdapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             it.addItemDecoration(RecyclerViewVerticalDecorator())
