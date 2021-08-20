@@ -19,10 +19,6 @@ class RecyclerViewVerticalDecorator (
         val itemPosition = parent.getChildAdapterPosition(view)
         val density = parent.context.resources.displayMetrics.density
 
-        if (itemPosition == 0) {
-            outRect.top = (density * padding).toInt()
-        }
-
         val adapter = parent.adapter
         if (adapter != null && itemPosition == adapter.itemCount - 1) {
             outRect.bottom = (density * (padding)).toInt()
