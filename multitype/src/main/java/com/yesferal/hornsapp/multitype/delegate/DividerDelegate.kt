@@ -11,7 +11,7 @@ class DividerDelegate(
     private val height: Int
 ) : ViewDelegate<DelegateListener>() {
 
-    override fun bind(view: View, listener: DelegateListener) {
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
         view.findViewById<View>(R.id.view).also {
             val widthAsPixels = convertDpToPixel(width.toFloat(), view.context)
             val heightAsPixels = convertDpToPixel(height.toFloat(), view.context)

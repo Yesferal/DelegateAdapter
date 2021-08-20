@@ -4,14 +4,14 @@ import android.view.View
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 
-internal class RowViewHolder<MODEL : Delegate>(
+internal class RowViewHolder<DELEGATE : Delegate>(
     itemView: View,
     listener: DelegateListener
-) : ItemViewHolder<MODEL>(itemView, listener) {
+) : ItemViewHolder<DELEGATE>(itemView, listener) {
 
     var itemPosition = 0
 
-    fun onViewRecycled(model: MODEL) {
-        model.saveScroll(itemView)
+    fun onViewRecycled(delegate: DELEGATE) {
+        delegate.onViewRecycled(itemView)
     }
 }

@@ -6,11 +6,11 @@ import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
 
-data class TitleItem(
+data class TitleDelegate(
     val title: String
 ) : NonInteractiveViewDelegate() {
 
-    override fun bind(view: View, listener: DelegateListener) {
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
         view.findViewById<TextView>(R.id.title).text = title
     }
 

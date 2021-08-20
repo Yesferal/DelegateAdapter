@@ -5,9 +5,9 @@ import com.yesferal.hornsapp.multitype.viewholder.ItemViewHolder
 
 interface Delegate : LayoutBinding {
 
-    fun bindViewHolder(view: View, listener: DelegateListener)
+    fun onBindViewHolder(view: View, listener: DelegateListener)
 
-    fun saveScroll(view: View) {}
+    fun onViewRecycled(view: View) {}
 
     fun onCreateViewHolder(
         itemView: View,

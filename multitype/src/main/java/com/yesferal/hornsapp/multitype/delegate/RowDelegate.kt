@@ -14,14 +14,10 @@ import com.yesferal.hornsapp.multitype.viewholder.RowViewHolder
 class RowDelegate private constructor(
     private val items: List<Delegate>,
     private val horizontalMargin: Int
-) : Delegate {
+) : NonInteractiveViewDelegate() {
 
     private var scrollOffset: Int = 0
     private var scrollPosition: Int = 0
-
-    override fun bindViewHolder(view: View, listener: DelegateListener) {
-        bind(view, listener)
-    }
 
     override fun onCreateViewHolder(
         itemView: View,
@@ -33,7 +29,7 @@ class RowDelegate private constructor(
     override val layout: Int
         get() = R.layout.item_row_multi_type
 
-    override fun saveScroll(view: View) {
+    override fun onViewRecycled(view: View) {
         view.findViewById<RecyclerView>(R.id.recyclerView).let { recyclerView ->
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
             scrollPosition = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
@@ -45,7 +41,7 @@ class RowDelegate private constructor(
         }
     }
 
-    fun bind(view: View, listener: DelegateListener) {
+    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
         val adapter = DelegateAdapter.Builder()
             .addItem(DividerDelegate(horizontalMargin, 0))
             .addItems(items)

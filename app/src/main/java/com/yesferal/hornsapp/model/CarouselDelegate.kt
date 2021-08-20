@@ -8,12 +8,11 @@ import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
 
-class MainCard(
+class CarouselDelegate(
     val title: String,
     @DrawableRes val image: Int
-) : ViewDelegate<MainCard.Listener>() {
-
-    override fun bind(view: View, listener: Listener) {
+) : ViewDelegate<CarouselDelegate.Listener>() {
+    override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.title).text = title
         view.findViewById<ImageView>(R.id.image).setImageResource(image)
         view.setOnClickListener {
@@ -22,9 +21,9 @@ class MainCard(
     }
 
     override val layout: Int
-        get() = R.layout.item_main_card
+        get() = R.layout.item_carousel_card
 
     interface Listener: DelegateListener {
-        fun onClick(mainCard: MainCard)
+        fun onClick(carouselDelegate: CarouselDelegate)
     }
 }

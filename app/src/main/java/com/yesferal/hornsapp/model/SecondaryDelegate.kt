@@ -8,13 +8,13 @@ import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
 
-class SecondaryCard(
+class SecondaryDelegate(
         val title: String,
         val description: String,
         @DrawableRes val image: Int
-) : ViewDelegate<SecondaryCard.Listener>() {
+) : ViewDelegate<SecondaryDelegate.Listener>() {
 
-    override fun bind(view: View, listener: Listener) {
+    override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.title).text = title
         view.findViewById<TextView>(R.id.description).text = description
         view.findViewById<ImageView>(R.id.image).setImageResource(image)
@@ -27,6 +27,6 @@ class SecondaryCard(
         get() = R.layout.item_secondary_card
 
     interface Listener: DelegateListener {
-        fun onClick(secondaryCard: SecondaryCard)
+        fun onClick(secondaryDelegate: SecondaryDelegate)
     }
 }

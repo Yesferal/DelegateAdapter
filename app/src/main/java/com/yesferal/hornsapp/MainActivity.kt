@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.yesferal.hornsapp.model.CarouselCard
-import com.yesferal.hornsapp.model.MainCard
-import com.yesferal.hornsapp.model.SecondaryCard
+import com.yesferal.hornsapp.model.CarouselDelegate
+import com.yesferal.hornsapp.model.MainDelegate
+import com.yesferal.hornsapp.model.SecondaryDelegate
 import com.yesferal.hornsapp.multitype.delegate.RowDelegate
 import com.yesferal.hornsapp.multitype.delegate.MultiTypeContainer
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.util.RecyclerViewVerticalDecorator
 
-class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Listener,
-    CarouselCard.Listener {
+class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelegate.Listener,
+    CarouselDelegate.Listener {
 
     private lateinit var mtContainer: MultiTypeContainer
 
@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Liste
             .addItem(
                 RowDelegate.Builder()
                 .addItems(listOf(
-                    MainCard(title = "Main Landscape (1/3)", image = R.drawable.image5),
-                    MainCard(title = "Main Landscape (2/3)", image = R.drawable.image1),
-                    MainCard(title = "Main Landscape (3/3)", image = R.drawable.image2),
+                    MainDelegate(title = "Main Landscape (1/3)", image = R.drawable.image5),
+                    MainDelegate(title = "Main Landscape (2/3)", image = R.drawable.image1),
+                    MainDelegate(title = "Main Landscape (3/3)", image = R.drawable.image2),
                 ))
                 .build()
             )
@@ -51,18 +51,18 @@ class MainActivity : AppCompatActivity(), MainCard.Listener, SecondaryCard.Liste
         mtContainer.updateItems(items)
     }
 
-    override fun onClick(mainCard: MainCard) {
-        Toast.makeText(this, "You click on main object: ${mainCard.title}", Toast.LENGTH_SHORT)
+    override fun onClick(mainDelegate: MainDelegate) {
+        Toast.makeText(this, "You click on main object: ${mainDelegate.title}", Toast.LENGTH_SHORT)
             .show()
     }
 
-    override fun onClick(secondaryCard: SecondaryCard) {
-        Toast.makeText(this, "You click on secondary object: ${secondaryCard.title}", Toast.LENGTH_SHORT)
+    override fun onClick(secondaryDelegate: SecondaryDelegate) {
+        Toast.makeText(this, "You click on secondary object: ${secondaryDelegate.title}", Toast.LENGTH_SHORT)
             .show()
     }
 
-    override fun onClick(carouselCard: CarouselCard) {
-        Toast.makeText(this, "You click on secondary object: ${carouselCard.title}", Toast.LENGTH_SHORT)
+    override fun onClick(carouselDelegate: CarouselDelegate) {
+        Toast.makeText(this, "You click on secondary object: ${carouselDelegate.title}", Toast.LENGTH_SHORT)
             .show()
     }
 }

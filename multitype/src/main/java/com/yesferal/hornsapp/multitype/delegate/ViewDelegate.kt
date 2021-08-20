@@ -8,10 +8,10 @@ typealias NonInteractiveViewDelegate = ViewDelegate<DelegateListener>
 
 abstract class ViewDelegate<LISTENER : DelegateListener> : Delegate {
 
-    abstract fun bind(view: View, listener: LISTENER)
+    abstract fun onBindViewDelegate(view: View, listener: LISTENER)
 
-    override fun bindViewHolder(view: View, listener: DelegateListener) {
+    override fun onBindViewHolder(view: View, listener: DelegateListener) {
         @Suppress("UNCHECKED_CAST")
-        bind(view, listener as LISTENER)
+        onBindViewDelegate(view, listener as LISTENER)
     }
 }

@@ -51,7 +51,7 @@ class DelegateAdapter private constructor(
         if (holder is RowViewHolder) {
             holder.itemPosition = position
         }
-        holder.bind(items[position])
+        holder.onBindViewHolder(items[position])
     }
 
     fun updateItems(newItems: List<Delegate>) {
