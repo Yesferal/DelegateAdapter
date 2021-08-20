@@ -3,19 +3,20 @@ package com.yesferal.hornsapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.model.CarouselDelegate
 import com.yesferal.hornsapp.model.MainDelegate
 import com.yesferal.hornsapp.model.SecondaryDelegate
+import com.yesferal.hornsapp.multitype.DelegateAdapter
 import com.yesferal.hornsapp.multitype.delegate.RowDelegate
-import com.yesferal.hornsapp.multitype.delegate.MultiTypeContainer
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 import com.yesferal.hornsapp.util.RecyclerViewVerticalDecorator
 
 class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelegate.Listener,
     CarouselDelegate.Listener {
 
-    private lateinit var mtContainer: MultiTypeContainer
+    private lateinit var delegateAdapter: DelegateAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
 
         val items = ViewGenerator.items
 
-        mtContainer = MultiTypeContainer.Builder()
+        delegateAdapter = DelegateAdapter.Builder()
             .addItem(
                 RowDelegate.Builder()
                 .addItems(listOf(
@@ -39,7 +40,8 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
 
         findViewById<RecyclerView>(R.id.recyclerView).let {
             it.addItemDecoration(RecyclerViewVerticalDecorator())
-            mtContainer.attachRecycler(it)
+            it.layoutManager = LinearLayoutManager(it.context, LinearLayoutManager.VERTICAL, false)
+            it.adapter = delegateAdapter
         }
     }
 
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
      * or you are waiting for a service response
      */
     fun updateView(items: List<Delegate>) {
-        mtContainer.updateItems(items)
+        delegateAdapter.updateItems(items)
     }
 
     override fun onClick(mainDelegate: MainDelegate) {

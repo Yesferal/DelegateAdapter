@@ -10,7 +10,7 @@ abstract class ViewDelegate<LISTENER : DelegateListener> : Delegate {
 
     abstract fun onBindViewDelegate(view: View, listener: LISTENER)
 
-    override fun onBindViewHolder(view: View, listener: DelegateListener) {
+    final override fun onBindViewHolder(view: View, listener: DelegateListener) {
         @Suppress("UNCHECKED_CAST")
         onBindViewDelegate(view, listener as LISTENER)
     }

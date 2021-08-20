@@ -9,7 +9,7 @@ import com.yesferal.hornsapp.multitype.util.convertDpToPixel
 class DividerDelegate(
     private val width: Int,
     private val height: Int
-) : ViewDelegate<DelegateListener>() {
+) : NonInteractiveViewDelegate() {
 
     override fun onBindViewDelegate(view: View, listener: DelegateListener) {
         view.findViewById<View>(R.id.view).also {
