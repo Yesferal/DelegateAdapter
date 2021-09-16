@@ -14,7 +14,7 @@ import com.yesferal.hornsapp.multitype.viewholder.RowViewHolder
 class RowDelegate private constructor(
     private val items: List<Delegate>,
     private val horizontalMargin: Int
-) : NonInteractiveViewDelegate() {
+) : NonInteractiveDelegate {
 
     private var scrollOffset: Int = 0
     private var scrollPosition: Int = 0

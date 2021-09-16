@@ -6,13 +6,13 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
 
 class SecondaryDelegate(
         val title: String,
         val description: String,
         @DrawableRes val image: Int
-) : ViewDelegate<SecondaryDelegate.Listener>() {
+) : InteractiveDelegate<SecondaryDelegate.Listener> {
 
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.title).text = title

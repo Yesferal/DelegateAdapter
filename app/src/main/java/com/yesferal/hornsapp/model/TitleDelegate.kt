@@ -4,11 +4,11 @@ import android.view.View
 import android.widget.TextView
 import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.NonInteractiveViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
 
 data class TitleDelegate(
     val title: String
-) : NonInteractiveViewDelegate() {
+) : NonInteractiveDelegate {
 
     override fun onBindViewDelegate(view: View, listener: DelegateListener) {
         view.findViewById<TextView>(R.id.title).text = title

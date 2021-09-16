@@ -6,12 +6,12 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.yesferal.hornsapp.R
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.ViewDelegate
+import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
 
 class CarouselDelegate(
     val title: String,
     @DrawableRes val image: Int
-) : ViewDelegate<CarouselDelegate.Listener>() {
+) : InteractiveDelegate<CarouselDelegate.Listener> {
     override fun onBindViewDelegate(view: View, listener: Listener) {
         view.findViewById<TextView>(R.id.title).text = title
         view.findViewById<ImageView>(R.id.image).setImageResource(image)

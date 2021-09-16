@@ -4,13 +4,13 @@ import android.view.View
 import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
 import com.yesferal.hornsapp.multitype.abstraction.Delegate
 
-typealias NonInteractiveViewDelegate = ViewDelegate<DelegateListener>
+typealias NonInteractiveDelegate = InteractiveDelegate<DelegateListener>
 
-abstract class ViewDelegate<LISTENER : DelegateListener> : Delegate {
+interface InteractiveDelegate<LISTENER : DelegateListener> : Delegate {
 
-    abstract fun onBindViewDelegate(view: View, listener: LISTENER)
+    fun onBindViewDelegate(view: View, listener: LISTENER)
 
-    final override fun onBindViewHolder(view: View, listener: DelegateListener) {
+    override fun onBindViewHolder(view: View, listener: DelegateListener) {
         @Suppress("UNCHECKED_CAST")
         onBindViewDelegate(view, listener as LISTENER)
     }
