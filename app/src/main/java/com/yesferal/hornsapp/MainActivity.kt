@@ -27,12 +27,16 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
         delegateAdapter = DelegateAdapter.Builder()
             .addItem(
                 RowDelegate.Builder()
-                .addItems(listOf(
-                    MainDelegate(title = "Main Landscape (1/3)", image = R.drawable.image5),
-                    MainDelegate(title = "Main Landscape (2/3)", image = R.drawable.image1),
-                    MainDelegate(title = "Main Landscape (3/3)", image = R.drawable.image2),
-                ))
-                .build()
+                    .addItems(
+                        listOf(
+                            MainDelegate(title = "Main Landscape (1/3)", image = R.drawable.image5),
+                            MainDelegate(title = "Main Landscape (2/3)", image = R.drawable.image1),
+                            MainDelegate(title = "Main Landscape (3/3)", image = R.drawable.image2),
+                        )
+                    )
+                    .addBackground(R.color.white)
+                    .addElevation(16F)
+                    .build()
             )
             .addItems(items)
             .setListener(this)
@@ -59,12 +63,18 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
     }
 
     override fun onClick(secondaryDelegate: SecondaryDelegate) {
-        Toast.makeText(this, "You click on secondary object: ${secondaryDelegate.title}", Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(
+            this,
+            "You click on secondary object: ${secondaryDelegate.title}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onClick(carouselDelegate: CarouselDelegate) {
-        Toast.makeText(this, "You click on secondary object: ${carouselDelegate.title}", Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(
+            this,
+            "You click on secondary object: ${carouselDelegate.title}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

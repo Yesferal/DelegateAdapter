@@ -40,6 +40,8 @@ object ViewGenerator {
                 )
             ))
             .addHorizontalMargin(8)
+            .addBackground(R.color.white)
+            .addElevation(4F)
             .build(),
         TitleDelegate(title = "Section #2"),
         RowDelegate.Builder()
@@ -66,6 +68,8 @@ object ViewGenerator {
                 )
             ))
             .addHorizontalMargin(8)
+            .addBackground(R.color.white)
+            .addElevation(4F)
             .build(),
         TitleDelegate(title = "Section #3"),
         RowDelegate.Builder()
@@ -92,6 +96,8 @@ object ViewGenerator {
                 )
             ))
             .addHorizontalMargin(8)
+            .addBackground(R.color.white)
+            .addElevation(4F)
             .build(),
         TitleDelegate(title = "Section #4"),
         SecondaryDelegate(

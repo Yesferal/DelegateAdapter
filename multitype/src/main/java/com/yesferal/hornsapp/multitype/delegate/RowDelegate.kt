@@ -2,6 +2,8 @@ package com.yesferal.hornsapp.multitype.delegate
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.multitype.R
@@ -13,7 +15,9 @@ import com.yesferal.hornsapp.multitype.viewholder.RowViewHolder
 
 class RowDelegate private constructor(
     private val items: List<Delegate>,
-    private val horizontalMargin: Int
+    private val horizontalMargin: Int,
+    @ColorRes private val background: Int?,
+    private val elevation: Float
 ) : NonInteractiveDelegate {
 
     private var scrollOffset: Int = 0
@@ -27,7 +31,7 @@ class RowDelegate private constructor(
     }
 
     override val layout: Int
-        get() = R.layout.item_row_multi_type
+        get() = R.layout.item_row_delegate
 
     override fun onViewRecycled(view: View) {
         view.findViewById<RecyclerView>(R.id.recyclerView).let { recyclerView ->
@@ -55,11 +59,17 @@ class RowDelegate private constructor(
             recyclerView.adapter = adapter
             recyclerView.layoutManager = linearLayoutManager
         }
+        background?.let {
+            view.setBackgroundColor(ContextCompat.getColor(view.context, it))
+        }
+        view.elevation = elevation
     }
 
     class Builder {
         private var items: MutableList<Delegate> = mutableListOf()
         private var horizontalMargin: Int = 0
+        @ColorRes private var background: Int? = null
+        private var elevation: Float = 0F
 
         fun addItems(items: List<Delegate>) = apply {
             this.items.addAll(items)
@@ -69,6 +79,14 @@ class RowDelegate private constructor(
             this.horizontalMargin = horizontalMargin
         }
 
-        fun build() = RowDelegate(items, horizontalMargin)
+        fun addBackground(background: Int) = apply {
+            this.background = background
+        }
+
+        fun addElevation(elevation: Float) = apply {
+            this.elevation = elevation
+        }
+
+        fun build() = RowDelegate(items, horizontalMargin, background, elevation)
     }
 }
