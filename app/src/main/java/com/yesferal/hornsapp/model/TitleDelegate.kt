@@ -3,8 +3,8 @@ package com.yesferal.hornsapp.model
 import android.view.View
 import android.widget.TextView
 import com.yesferal.hornsapp.R
-import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.NonInteractiveDelegate
+import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
+import com.yesferal.hornsapp.delegate.delegate.NonInteractiveDelegate
 
 data class TitleDelegate(
     val title: String

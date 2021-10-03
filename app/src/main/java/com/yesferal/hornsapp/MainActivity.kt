@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.model.CarouselDelegate
 import com.yesferal.hornsapp.model.MainDelegate
 import com.yesferal.hornsapp.model.SecondaryDelegate
-import com.yesferal.hornsapp.multitype.DelegateAdapter
-import com.yesferal.hornsapp.multitype.delegate.RowDelegate
-import com.yesferal.hornsapp.multitype.abstraction.Delegate
+import com.yesferal.hornsapp.delegate.DelegateAdapter
+import com.yesferal.hornsapp.delegate.delegate.RowDelegate
+import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.util.RecyclerViewVerticalDecorator
 
 class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelegate.Listener,

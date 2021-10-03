@@ -1,3 +1,0 @@
-package com.yesferal.hornsapp.multitype.abstraction
-
-interface DelegateListener

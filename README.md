@@ -1,4 +1,4 @@
- [![](https://jitpack.io/v/Yesferal/MultiTypeAdapter.svg)](https://jitpack.io/#Yesferal/MultiTypeAdapter)
+ [![](https://jitpack.io/v/Yesferal/DelegateAdapter.svg)](https://jitpack.io/#Yesferal/DelegateAdapter)
  # MultiType Adapter
  This library contains a delegate adapter class, which you can use in any Android project.
  You can define all your custom views as a `ViewDelegate`,

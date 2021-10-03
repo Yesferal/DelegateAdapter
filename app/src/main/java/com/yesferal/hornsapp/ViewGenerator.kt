@@ -3,7 +3,7 @@ package com.yesferal.hornsapp
 import com.yesferal.hornsapp.model.CarouselDelegate
 import com.yesferal.hornsapp.model.SecondaryDelegate
 import com.yesferal.hornsapp.model.TitleDelegate
-import com.yesferal.hornsapp.multitype.delegate.RowDelegate
+import com.yesferal.hornsapp.delegate.delegate.RowDelegate
 
 object ViewGenerator {
     val items = listOf(

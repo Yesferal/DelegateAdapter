@@ -5,8 +5,8 @@ import android.widget.TextView
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.yesferal.hornsapp.R
-import com.yesferal.hornsapp.multitype.abstraction.DelegateListener
-import com.yesferal.hornsapp.multitype.delegate.InteractiveDelegate
+import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
+import com.yesferal.hornsapp.delegate.delegate.InteractiveDelegate
 
 class SecondaryDelegate(
         val title: String,
