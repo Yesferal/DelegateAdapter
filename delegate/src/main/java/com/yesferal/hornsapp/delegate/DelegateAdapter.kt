@@ -10,7 +10,7 @@ import com.yesferal.hornsapp.delegate.viewholder.DelegateViewHolder
 import java.lang.Exception
 
 class DelegateAdapter private constructor(
-    private val items: MutableList<Delegate>,
+    private val delegates: MutableList<Delegate>,
     private val listener: DelegateListener,
     private val viewTypes: HashMap<Int, (
         itemView: View,
@@ -19,7 +19,7 @@ class DelegateAdapter private constructor(
 ) : RecyclerView.Adapter<DelegateViewHolder>() {
 
     init {
-        items.forEach { updateViewTypes(it) }
+        delegates.forEach { updateViewTypes(it) }
     }
 
     override fun onCreateViewHolder(
@@ -40,7 +40,7 @@ class DelegateAdapter private constructor(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return items[position].layout
+        return delegates[position].layout
     }
 
     override fun onBindViewHolder(
@@ -48,13 +48,13 @@ class DelegateAdapter private constructor(
         position: Int
     ) {
         holder.itemPosition = position
-        holder.onBindViewHolder(items[position])
+        holder.onBindViewHolder(delegates[position])
     }
 
-    fun updateItems(newItems: List<Delegate>) {
-        items.clear()
-        newItems.forEach {
-            items.add(it)
+    fun updateDelegates(newDelegates: List<Delegate>) {
+        delegates.clear()
+        newDelegates.forEach {
+            delegates.add(it)
             updateViewTypes(it)
         }
         notifyDataSetChanged()
@@ -70,11 +70,11 @@ class DelegateAdapter private constructor(
 
     override fun onViewRecycled(holder: DelegateViewHolder) {
         super.onViewRecycled(holder)
-        val item = items[holder.itemPosition]
+        val item = delegates[holder.itemPosition]
         holder.onViewRecycled(item)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = delegates.size
 
     class Builder {
         private var items: MutableList<Delegate> = mutableListOf()

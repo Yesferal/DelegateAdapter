@@ -1,11 +1,11 @@
  [![](https://jitpack.io/v/Yesferal/DelegateAdapter.svg)](https://jitpack.io/#Yesferal/DelegateAdapter)
- # MultiType Adapter
- This library contains a delegate adapter class, which you can use in any Android project.
- You can define all your custom views as a `ViewDelegate`,
- and then insert them into this adapter.
+ # Delegate Adapter
+ This library contains a [DelegateAdapter](https://github.com/Yesferal/DelegateAdapter/blob/main/delegate/src/main/java/com/yesferal/hornsapp/delegate/DelegateAdapter.kt), 
+ which is an adapter you can link with your RecyclerView in any Android project.
+ You can define all your views as Delegates, and then insert them into this adapter.
 
  ## Getting Started
- In your app gradle, you should add the repository:
+ In your project gradle, you should add the repository:
  ```kotlin
 allprojects {
     repositories {
@@ -14,160 +14,218 @@ allprojects {
     }
 }
  ```
- and the dependency:
+ and, in your app gradle, add the dependency:
  ```kotlin
- implementation 'com.github.Yesferal:MultiTypeAdapter:1.4.0'
+ implementation 'com.github.Yesferal:DelegateAdapter:${version}'
  ```
 
- Now, you could instance a `MultiTypeAdapter` in your Activity or Fragment, as you normally did.
+ Now, you can instance a DelegateAdapter in your Activity or Fragment, as you normally do.
 
- ## How to: Initialize MultiTypeAdapter
- First, you have to initialize it using its own Builder:
+ ## How to: Initialize the DelegateAdapter
+You can initialize it using its own Builder:
  ```kotlin
- private val multiTypeAdapter = MultiTypeAdapter.Builder().build()
+ val delegateAdapter = DelegateAdapter.Builder().build()
  ```
 
- ### MultiType's Builder
- The `MultiTypeAdapter`'s builder receives three optional methods:
- - addItem(): If you have to insert just one BaseItem into the list.
-   - The default value of this list is an empty `mutableListOf()`.
- - addItems(): If you have to insert a bunch of BaseItems into the list.
-   - The default value of this list is an empty `mutableListOf()`.
- - setListener(): If you have to handle some behaviour in the Activity or Fragment.
-   - The default value is an empty `BaseItem.Listener.
+ ### Builder Methods
+ The DelegateAdapter's builder has the following methods:
+ - addItem ([Any kind of Delegate](https://github.com/Yesferal/DelegateAdapter/tree/main/delegate/src/main/java/com/yesferal/hornsapp/delegate/delegate)): If you have to insert just one Delegate into the list.
+   - The default value of this list is an empty List.
+ - addItems(List<[Any kind of Delegate](https://github.com/Yesferal/DelegateAdapter/tree/main/delegate/src/main/java/com/yesferal/hornsapp/delegate/delegate)>): If you have to insert a bunch of Delegates into the list.
+   - The default value of this list is an empty List.
+ - setListener (DelegateListener): If you have to handle some custom behaviour in your Activity/Fragment.
+   - The default value is a default Listener.
    - To understand the listener parameter, and how to add custom Listeners,
- you just need to read the [How to: Define an item with a Listener](https://github.com/Yesferal/MultiTypeAdapter#how-to-define-a-item-with-a-listener-or-callback) section.
+ you can check the [Declare-a-Delegate-Listener](https://github.com/Yesferal/DelegateAdapter#Declare-a-Delegate-Listener) section.
 
- For instance, you could initialize the `MultiTypeAdapter` and assign it to your `RecyclerView` as simple as:
+ For instance, you can initialize the DelegateAdapter and assign it to your RecyclerView as simple as:
  ```kotlin
  override fun onCreate(savedInstanceState: Bundle?) {
-     super.onCreate(savedInstanceState)
-     setContentView(R.layout.activity_main)
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+    
+    val delegateAdapter = DelegateAdapter().Builder()
+        .addItem(object : Delegate {
+            override fun onBindViewHolder(view: View, listener: DelegateListener) {}
 
-     val multiTypeAdapter = MultiTypeAdapter().Builder()
-                                .addItems(listOf(TitleItem("Title #1"), SectionItem("Section #1"), SectionItem("Section #2"))
-                                .build()
+            override val layout: Int
+                get() = R.layout.item_title
 
-     recyclerView.also {
-         it.adapter = multiTypeAdapter
-         it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-     }
+        }).build()
+    
+    findViewById<RecyclerView>(R.id.recyclerView).let {
+        it.layoutManager = LinearLayoutManager(it.context, LinearLayoutManager.VERTICAL, false)
+        it.adapter = delegateAdapter
+    }
  }
  ```
 
- Finally, if you need to update your items later, then you could use this method:
- ```kotlin
- multiTypeAdapter.updateItems(listOf(/* Your items will be here */))
- ```
+### What kind of Delegate exist?
+Before you insert any delegate in the DelegateAdapter, 
+you make sure that it implements either `InteractiveDelegate` or `NonInteractiveDelegate`.
+   - [NonInteractiveDelegate](https://github.com/Yesferal/DelegateAdapter#NonInteractiveDelegate):
+If the Delegate won't interact with any class
+   - [InteractiveDelegate](https://github.com/Yesferal/DelegateAdapter#InteractiveDelegate):
+If the Delegate will interact with your Activity/Fragment
 
- ## How to: Define a simple item
- Before you insert any item in the `MultiTypeAdapter`'s list, you need that this object extends from `BaseItem`.
- For instance, imagine that you need an item with one attribute, which could be `title: String`,
+Or, you can create an instance of RowDelegate in order to add a row of delegates:
+   - [RowDelegate](https://github.com/Yesferal/DelegateAdapter#RowDelegate):
+If you have to make a Horizontal list of delegates, in this case just use its builder in order to create it
+
+## How to: Insert or Update delegates
+First, your Delegate should implement either InteractiveDelegate or NonInteractiveDelegate, or be a RowDelegate.
+After that you can include it in your DelegateAdapter:
+```kotlin
+data class TitleDelegate(
+    val title: String
+) : NonInteractiveDelegate { /** Will be explained later **/ }
+
+val delegateAdapter = DelegateAdapter().Builder().build()
+ 
+delegateAdapter.updateDelegates(
+    listOf(
+        TitleDelegate(title = "Section #1"),
+        RowDelegate().Builder().build()
+    )
+)
+```
+
+## NonInteractiveDelegate
+ For instance, imagine that you need a Delegate with just one attribute(`title: String`),
  then your class will look this way:
  ```kotlin
- data class TitleItem(
-     val title: String
- ) : BaseItem<BaseItem.Listener>() {
-
-     override fun bind(view: View, listener: Listener) {
-         view.title.text = title
-     }
-
-     override val layout: Int
-         get() = R.layout.item_title
- }
- ```
-
- As you could see above, when you extend from `BaseItem` you have to:
- - Override the `bind` method
-   - In this method you will bind the view and your item or model, as you normally do in a `ViewHolder`.
- - Override the `layout` attribute
-   - The `layout` attribute must be the layout's id you are using for this item.
-
- And that's it, now you can include `TitleItem` in `MultiTypeAdapter`'s list:
-  ```kotlin
-  multiTypeAdapter.updateItems(listOf(TitleItem(title = "Section #1")))
-  ```
-
- ## How to: Define an item with a Listener
- When we use a `RecyclerView` we always have to implement a `ViewHolder`,
- and sometimes we need a Listener to communicate the `ViewHolder` and the Activity or Fragment.
-
- ### Declare a Custom Listener
- So, to add a custom Listener you just need to create an interface (e.g. `CustomListener`)
- and implement the `BaseItem.Listener`.
- ```kotlin
- interface CustomListener: BaseItem.Listener {
-     fun onClick(titleItem: TitleItem)
- }
- ```
-
- This interface could contains any method you need.
- The only condition is it has to implement `BaseItem.Listener`.
-
- ### Call the Custom Listener's methods
- Then, if you want to use any method defined previously in your `CustomInterface`
- you just need to replace the generic interface inside `BaseItem</*Here*/>`.
- And then update the bind method.
- ```kotlin
-class TitleItem(
+data class TitleDelegate(
     val title: String
-) : BaseItem<TitleItem.CustomListener>() {
+) : NonInteractiveDelegate
+ ```
 
-    override fun bind(view: View, listener: CustomListener) {
+### Override NonInteractiveDelegate
+
+ As you could see, when you extend from `NonInteractiveDelegate` you have to override:
+ - `onBindViewDelegate`: Here you will bind the view elements with the delegate attributes, as you normally do in a `ViewHolder`.
+ - `layout`: This will be the layout's id you are using for this delegate.
+
+After you implement them your class will look like:
+```kotlin
+ data class TitleDelegate(
+    val title: String
+) : NonInteractiveDelegate {
+
+    override fun onBindViewDelegate(view: View) {
+        view.findViewById<TextView>(R.id.title).text = title
+    }
+
+    override val layout: Int
+        get() = R.layout.item_title
+}
+```
+
+## InteractiveDelegate
+When we use a RecyclerView we also have to implement an Adapter, 
+and sometimes we need a Listener to communicate our Activity/Fragment that the Adapter had an interaction.
+
+Here we can use `InteractiveDelegate`, 
+but as you can see the `InteractiveDelegate` expect a `DelegateListener`.
+
+```kotlin
+class TitleDelegate(
+    val title: String
+) : InteractiveDelegate</** Expect a DelegateListener **/>
+```
+
+ ### Declare a DelegateListener
+To declare a custom Delegate Listener you just need to create an interface (e.g. `CustomListener`)
+that implement the DelegateListener.
+```kotlin
+interface CustomListener: DelegateListener {
+    fun onClick(titleDelegate: TitleDelegate)
+}
+```
+
+ This interface should contain all the interactions you need, like `onClick`.
+ The only condition is to implement DelegateListener.
+
+Now you can link this Listener with your Delegate, of course your Delegate should be an InteractiveDelegate.
+```kotlin
+class TitleDelegate(
+    val title: String
+) : InteractiveDelegate<CustomListener>
+```
+
+### Call the DelegateListener's methods
+
+As you could see, when you extend from InteractiveDelegate you have to override:
+- `onBindViewDelegate`: Here you will bind the view elements with the delegate attributes, as you normally do in a ViewHolder
+    - Plus, here you will have an instance (`listener: CustomListener`) of your CustomListener
+- `layout`: This will be the layout's id you are using for this delegate
+
+After you implement them your class will look like:
+```kotlin
+ class TitleDelegate(
+    val title: String
+) : InteractiveDelegate<CustomListener> {
+    
+    override fun onBindViewDelegate(view: View, listener: CustomListener) {
         view.title.text = title
         view.setOnClickListener {
             listener.onClick(this)
         }
     }
 
-    interface CustomListener: BaseItem.Listener {
-         fun onClick(titleItem: TitleItem)
-    }
+    override val layout: Int
+        get() = R.layout.item_title
 }
 ```
 
- ### Set the Custom Listener into the MultiTypeAdapter
- We should return to our Activity or Fragment.
- As we already know, we can add a `BaseItem.Listener` in `MultiTypeAdapter` using its builder.
- In this example we will pass `this`, because Activity will implement our `TitleItem.CustomListener`.
+### Implement the DelegateListener's methods
+Due to we have to interact with the Activity/Fragment, 
+then we have to override the listener and link it with our `DelegateAdapter` too.
+As we already know, we can insert a `DelegateListener` in the `DelegateAdapter` using its builder.
+In this example we will pass the Listener implementation as an object.
  ```kotlin
- val multiTypeAdapter = MultiTypeAdapter.Builder()
-                            .addItems(listOf(TitleItem("Title #1")))
-                            .setListener(this)
+val delegateAdapter = DelegateAdapter().Builder()
+                            .setListener(object: CustomListener {
+                                override fun onClick(titleDelegate: TitleDelegate) {
+                                    TODO("Not yet implemented")
+                                }
+                            })
                             .build()
  ```
 
-### Override the Custom Listener's methods
-As we know, if we use `this` as listener we should make that Activity extend from `TitleItem.CustomListener`.
-After that we have to override the methods,
-so now you can fill the body of `onClick(titleItem: TitleItem)` method as you need it.
- ```kotlin
- class MainActivity : AppCompatActivity(), TitleItem.CustomListener {
-     override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
-         setContentView(R.layout.activity_main)
+## RowDelegate
+If you want to add a Horizontal list of Delegates (Nested RecyclerView), you can use a RowDelegate.
+In that case you just need to create a RowDelegate using its builder.
 
-         val multiTypeAdapter = MultiTypeAdapter.Builder()
-                 .addItems(listOf(TitleItem("Title #1")))
-                 .setListener(this)
-                 .build()
+````kotlin
+val rowDelegate = RowDelegate.Builder()
+    .addItems(
+        listOf(
+            TitleDelegate(title = "Landscape (1/3)"),
+            TitleDelegate(title = "Landscape (2/3)"),
+            TitleDelegate(title = "Landscape (3/3)")
+        )
+    )
+    .addBackground(R.color.white)
+    .addElevation(16F)
+    .build()
 
-         recyclerView.also {
-             it.adapter = multiTypeAdapter
-             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-         }
-     }
+val delegateAdapter = DelegateAdapter.Builder().addItem(rowDelegate).build()
+````
 
-     override fun onClick(titleItem: TitleItem) {
-         Toast.makeText(this, "You click on title item: $titleItem", Toast.LENGTH_SHORT)
-                 .show()
-     }
- }
- ```
+This will give you a Delegate instance that will work as a Horizontal Recycler View, 
+so you will be able to scroll horizontally too. 
+Now your delegate adapter will work in any direction.
+
+### Builder methods
+The RowDelegate's builder has four methods:
+  - addItems (List<[Any kind of Delegate](https://github.com/Yesferal/DelegateAdapter/tree/main/delegate/src/main/java/com/yesferal/hornsapp/delegate/delegate)>):
+If you have to insert a bunch of Delegates into the horizontal list
+  - addHorizontalMargin (Int): If you have to add a start and end margins, like a Decorator but more simple
+  - addBackground (Int): If you have to set a background color
+  - addElevation (Float): If you have to set a view elevation
 
  ## Demo Projects
- In this Repository you have a Sample App that explain how to use this `MultiTypeAdapter`.
+ In this Repository you have a Sample App that explain how to use this DelegateAdapter.
 
  ## License
  ```

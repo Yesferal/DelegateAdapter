@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
      * If you need to update the items
      * or you are waiting for a service response
      */
-    fun updateView(items: List<Delegate>) {
-        delegateAdapter.updateItems(items)
+    fun updateView(delegates: List<Delegate>) {
+        delegateAdapter.updateDelegates(delegates)
     }
 
     override fun onClick(mainDelegate: MainDelegate) {
