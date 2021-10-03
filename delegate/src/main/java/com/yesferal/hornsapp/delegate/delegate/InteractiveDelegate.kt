@@ -4,8 +4,6 @@ import android.view.View
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 
-typealias NonInteractiveDelegate = InteractiveDelegate<DelegateListener>
-
 interface InteractiveDelegate<LISTENER : DelegateListener> : Delegate {
 
     fun onBindViewDelegate(view: View, listener: LISTENER)

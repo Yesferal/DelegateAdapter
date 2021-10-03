@@ -18,7 +18,7 @@ class RowDelegate private constructor(
     private val horizontalMargin: Int,
     @ColorRes private val background: Int?,
     private val elevation: Float
-) : NonInteractiveDelegate {
+) : InteractiveDelegate<DelegateListener> {
 
     private var scrollOffset: Int = 0
     private var scrollPosition: Int = 0

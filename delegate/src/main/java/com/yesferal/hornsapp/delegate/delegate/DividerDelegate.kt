@@ -5,7 +5,6 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.yesferal.hornsapp.delegate.R
-import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.util.convertDpToPixel
 
 data class DividerDelegate(
@@ -14,7 +13,7 @@ data class DividerDelegate(
     @ColorRes private val background: Int? = null
 ) : NonInteractiveDelegate {
 
-    override fun onBindViewDelegate(view: View, listener: DelegateListener) {
+    override fun onBindViewDelegate(view: View) {
         view.findViewById<View>(R.id.view).let { dividerView ->
             val widthAsPixels = convertDpToPixel(width.toFloat(), view.context)
             val heightAsPixels = convertDpToPixel(height.toFloat(), view.context)
