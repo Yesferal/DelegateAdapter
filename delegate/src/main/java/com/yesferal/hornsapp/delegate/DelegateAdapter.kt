@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.viewholder.ItemViewHolder
-import com.yesferal.hornsapp.delegate.viewholder.RowViewHolder
 import java.lang.Exception
 
 class DelegateAdapter private constructor(
@@ -16,8 +15,8 @@ class DelegateAdapter private constructor(
     private val viewTypes: HashMap<Int, (
         itemView: View,
         listener: DelegateListener
-    ) -> ItemViewHolder<Delegate>> = hashMapOf()
-) : RecyclerView.Adapter<ItemViewHolder<Delegate>>() {
+    ) -> ItemViewHolder> = hashMapOf()
+) : RecyclerView.Adapter<ItemViewHolder>() {
 
     init {
         items.forEach { updateViewTypes(it) }
@@ -26,7 +25,7 @@ class DelegateAdapter private constructor(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ItemViewHolder<Delegate> {
+    ): ItemViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(viewType, parent, false)
@@ -45,12 +44,10 @@ class DelegateAdapter private constructor(
     }
 
     override fun onBindViewHolder(
-        holder: ItemViewHolder<Delegate>,
+        holder: ItemViewHolder,
         position: Int
     ) {
-        if (holder is RowViewHolder) {
-            holder.itemPosition = position
-        }
+        holder.itemPosition = position
         holder.onBindViewHolder(items[position])
     }
 
@@ -71,12 +68,10 @@ class DelegateAdapter private constructor(
         }
     }
 
-    override fun onViewRecycled(holder: ItemViewHolder<Delegate>) {
+    override fun onViewRecycled(holder: ItemViewHolder) {
         super.onViewRecycled(holder)
-        if (holder is RowViewHolder) {
-            val item = items[holder.itemPosition]
-            holder.onViewRecycled(item)
-        }
+        val item = items[holder.itemPosition]
+        holder.onViewRecycled(item)
     }
 
     override fun getItemCount(): Int = items.size

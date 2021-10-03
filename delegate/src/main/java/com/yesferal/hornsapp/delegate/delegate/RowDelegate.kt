@@ -11,7 +11,6 @@ import com.yesferal.hornsapp.delegate.abstraction.Delegate
 import com.yesferal.hornsapp.delegate.viewholder.ItemViewHolder
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
-import com.yesferal.hornsapp.delegate.viewholder.RowViewHolder
 
 class RowDelegate private constructor(
     private val items: List<Delegate>,
@@ -26,8 +25,8 @@ class RowDelegate private constructor(
     override fun onCreateViewHolder(
         itemView: View,
         listener: DelegateListener
-    ): ItemViewHolder<Delegate> {
-        return RowViewHolder(itemView, listener)
+    ): ItemViewHolder {
+        return ItemViewHolder(itemView, listener)
     }
 
     override val layout: Int

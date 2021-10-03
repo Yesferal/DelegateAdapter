@@ -12,7 +12,7 @@ interface Delegate : LayoutBinding {
     fun onCreateViewHolder(
         itemView: View,
         listener: DelegateListener
-    ): ItemViewHolder<Delegate> {
+    ): ItemViewHolder {
         return ItemViewHolder(itemView, listener)
     }
 }
