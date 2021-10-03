@@ -28,12 +28,12 @@ jobs:
 
       # Execute clean build
       - name: Clean
-        run: ./gradlew :multitype:clean
+        run: ./gradlew :delegate:clean
 
       # Execute lint validation
       - name: Lint
-        run: ./gradlew :multitype:lintDebug
+        run: ./gradlew :delegate:lintDebug
 
       # Execute unit tests
       - name: Unit Test
-        run: ./gradlew :multitype:testDebugUnitTest
+        run: ./gradlew :delegate:testDebugUnitTest
