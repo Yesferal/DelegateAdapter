@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
 
-class ItemViewHolder(
+class DelegateViewHolder(
     itemView: View,
     private val listener: DelegateListener
 ) : RecyclerView.ViewHolder(itemView) {

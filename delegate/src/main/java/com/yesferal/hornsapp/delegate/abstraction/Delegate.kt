@@ -1,7 +1,7 @@
 package com.yesferal.hornsapp.delegate.abstraction
 
 import android.view.View
-import com.yesferal.hornsapp.delegate.viewholder.ItemViewHolder
+import com.yesferal.hornsapp.delegate.viewholder.DelegateViewHolder
 
 interface Delegate : LayoutBinding {
 
@@ -12,7 +12,7 @@ interface Delegate : LayoutBinding {
     fun onCreateViewHolder(
         itemView: View,
         listener: DelegateListener
-    ): ItemViewHolder {
-        return ItemViewHolder(itemView, listener)
+    ): DelegateViewHolder {
+        return DelegateViewHolder(itemView, listener)
     }
 }

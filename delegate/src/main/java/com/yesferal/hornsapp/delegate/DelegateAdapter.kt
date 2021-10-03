@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
-import com.yesferal.hornsapp.delegate.viewholder.ItemViewHolder
+import com.yesferal.hornsapp.delegate.viewholder.DelegateViewHolder
 import java.lang.Exception
 
 class DelegateAdapter private constructor(
@@ -15,8 +15,8 @@ class DelegateAdapter private constructor(
     private val viewTypes: HashMap<Int, (
         itemView: View,
         listener: DelegateListener
-    ) -> ItemViewHolder> = hashMapOf()
-) : RecyclerView.Adapter<ItemViewHolder>() {
+    ) -> DelegateViewHolder> = hashMapOf()
+) : RecyclerView.Adapter<DelegateViewHolder>() {
 
     init {
         items.forEach { updateViewTypes(it) }
@@ -25,7 +25,7 @@ class DelegateAdapter private constructor(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ItemViewHolder {
+    ): DelegateViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(viewType, parent, false)
@@ -44,7 +44,7 @@ class DelegateAdapter private constructor(
     }
 
     override fun onBindViewHolder(
-        holder: ItemViewHolder,
+        holder: DelegateViewHolder,
         position: Int
     ) {
         holder.itemPosition = position
@@ -68,7 +68,7 @@ class DelegateAdapter private constructor(
         }
     }
 
-    override fun onViewRecycled(holder: ItemViewHolder) {
+    override fun onViewRecycled(holder: DelegateViewHolder) {
         super.onViewRecycled(holder)
         val item = items[holder.itemPosition]
         holder.onViewRecycled(item)

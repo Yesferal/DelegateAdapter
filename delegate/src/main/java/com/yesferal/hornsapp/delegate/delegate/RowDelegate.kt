@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yesferal.hornsapp.delegate.R
 import com.yesferal.hornsapp.delegate.abstraction.Delegate
-import com.yesferal.hornsapp.delegate.viewholder.ItemViewHolder
+import com.yesferal.hornsapp.delegate.viewholder.DelegateViewHolder
 import com.yesferal.hornsapp.delegate.DelegateAdapter
 import com.yesferal.hornsapp.delegate.abstraction.DelegateListener
 
@@ -25,8 +25,8 @@ class RowDelegate private constructor(
     override fun onCreateViewHolder(
         itemView: View,
         listener: DelegateListener
-    ): ItemViewHolder {
-        return ItemViewHolder(itemView, listener)
+    ): DelegateViewHolder {
+        return DelegateViewHolder(itemView, listener)
     }
 
     override val layout: Int
