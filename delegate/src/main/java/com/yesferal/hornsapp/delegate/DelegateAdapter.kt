@@ -51,8 +51,20 @@ class DelegateAdapter private constructor(
         holder.onBindViewHolder(delegates[position])
     }
 
+    override fun onViewRecycled(holder: DelegateViewHolder) {
+        super.onViewRecycled(holder)
+        val itemPosition = holder.itemPosition
+        if (itemPosition < delegates.size) {
+            val item = delegates[itemPosition]
+            holder.onViewRecycled(item)
+        }
+    }
+
+    override fun getItemCount(): Int = delegates.size
+
     fun updateDelegates(newDelegates: List<Delegate>) {
         delegates.clear()
+        viewTypes.clear()
         newDelegates.forEach {
             delegates.add(it)
             updateViewTypes(it)
@@ -67,14 +79,6 @@ class DelegateAdapter private constructor(
             }
         }
     }
-
-    override fun onViewRecycled(holder: DelegateViewHolder) {
-        super.onViewRecycled(holder)
-        val item = delegates[holder.itemPosition]
-        holder.onViewRecycled(item)
-    }
-
-    override fun getItemCount(): Int = delegates.size
 
     class Builder {
         private var items: MutableList<Delegate> = mutableListOf()

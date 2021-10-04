@@ -33,7 +33,7 @@ class RowDelegate private constructor(
         get() = R.layout.item_row_delegate
 
     override fun onViewRecycled(view: View) {
-        view.findViewById<RecyclerView>(R.id.recyclerView).let { recyclerView ->
+        view.findViewById<RecyclerView>(R.id.recyclerView)?.let { recyclerView ->
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
             scrollPosition = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
             val firstItemView = linearLayoutManager?.findViewByPosition(scrollPosition)
@@ -54,7 +54,7 @@ class RowDelegate private constructor(
         val linearLayoutManager =
             LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         linearLayoutManager.scrollToPositionWithOffset(scrollPosition, scrollOffset)
-        view.findViewById<RecyclerView>(R.id.recyclerView).let { recyclerView ->
+        view.findViewById<RecyclerView>(R.id.recyclerView)?.let { recyclerView ->
             recyclerView.adapter = adapter
             recyclerView.layoutManager = linearLayoutManager
         }

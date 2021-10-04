@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.yesferal.hornsapp.model.CarouselDelegate
 import com.yesferal.hornsapp.model.MainDelegate
 import com.yesferal.hornsapp.model.SecondaryDelegate
@@ -47,13 +48,19 @@ class MainActivity : AppCompatActivity(), MainDelegate.Listener, SecondaryDelega
             it.layoutManager = LinearLayoutManager(it.context, LinearLayoutManager.VERTICAL, false)
             it.adapter = delegateAdapter
         }
+
+        findViewById<FloatingActionButton>(R.id.updateButton).setOnClickListener {
+            Toast.makeText(this, "You update the delegates", Toast.LENGTH_SHORT)
+                .show()
+            updateView(ViewGenerator.items)
+        }
     }
 
     /**
      * If you need to update the items
      * or you are waiting for a service response
      */
-    fun updateView(delegates: List<Delegate>) {
+    private fun updateView(delegates: List<Delegate>) {
         delegateAdapter.updateDelegates(delegates)
     }
 
