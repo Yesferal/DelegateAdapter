@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-def publishVersionID = "1.5.2"
+def publishVersionID = "1.5.3"
 
 android {
     compileSdkVersion 30
